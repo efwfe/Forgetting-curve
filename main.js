@@ -22,10 +22,18 @@ app.on("ready",function(){
         protocol:"file:",
         slashes:true
     }));
-    
-    // 退出
+
+    mainWindow.webContents.openDevTools();
     mainWindow.on("closed",function(){
         app.quit();
-    });
-
+   
 });
+
+// 退出应用 app:quit
+ipcMain.on("app:quit",function(e){
+    // 退出
+    console.log("adad");
+    mainWindow.close();
+});
+
+})
