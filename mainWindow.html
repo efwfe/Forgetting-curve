@@ -13,6 +13,7 @@
         </div>
     </nav>
     <button id='quit'>quit</button>
+    <button id='add'>add</button>
 
 </body>
 <script>
@@ -20,14 +21,19 @@
     const electron = require("electron");
     const {ipcRenderer} = electron;
 
-    const qbtn = document.getElementById('quit');
-    qbtn.addEventListener("click",quitApp);
-
+    const qBtn = document.getElementById('quit');
+    const addBtn = document.getElementById('add');
+    qBtn.addEventListener("click",quitApp);
+    addBtn.addEventListener("click",addWindow);
 
     function quitApp(e){
         ipcRenderer.send("app:quit");
     };
 
+    function addWindow(e){
+        ipcRenderer.send("app:addwindow");
+    };
     
+
 </script>
 </html>

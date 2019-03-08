@@ -1,21 +1,24 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
-
-
-const {app,BrowserWindow,Menu,ipcMain} = electron;
+const mainX = 720;
+const mainH = 640;
+const {app,BrowserWindow,remote,ipcMain} = electron;
 let mainWindow;
+let addWindow;
 
 // 监听app
 app.on("ready",function(){
     mainWindow = new BrowserWindow({
-        width:360,
-        height:640,
+        width:mainX,
+        height:mainH,
         frame:false,
         center: true,
-        resizable:false,
+        // resizable:false,
         minWidth:220,
         minHeight:220});
+
+
     // 加载html
     mainWindow.loadURL(url.format({
         pathname : path.join(__dirname,"mainWindow.html"),
@@ -24,16 +27,43 @@ app.on("ready",function(){
     }));
 
     mainWindow.webContents.openDevTools();
-    mainWindow.on("closed",function(){
-        app.quit();
-   
+    mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
+    // addWindow.on("closed",function(){ addWindow=null });// 子窗口退出
+               
 });
+
 
 // 退出应用 app:quit
-ipcMain.on("app:quit",function(e){
-    // 退出
-    console.log("adad");
-    mainWindow.close();
-});
+ipcMain.on("app:quit",function(e){mainWindow.close();});
 
+// 添加弹出窗口
+ipcMain.on("app:addwindow",function(e)
+    {addWindow = createAddWindow();});
+    
+// 退出弹窗
+ipcMain.on("app:quitAdd",function(e)
+    {addWindow.close();});
+
+// 数据获取保存
+ipcMain.on("item:add",function(e,items){
+    for (i=0;i<items.length;i++){
+            console.log(items[i]);
+    };
 })
+
+function createAddWindow(){
+    win = new BrowserWindow({width: mainX, height: mainH,frame: false,});
+    win.loadURL(url.format({
+        pathname : path.join(__dirname,"addWindow.html"),
+        protocol:"file:",
+        slashes:true
+    }));
+    // 当 window 被关闭，这个事件会被触发。
+    win.on('closed', () => {
+        win = null});
+    return win;
+    }
+
+
+
+

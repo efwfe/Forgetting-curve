@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Document</title>
+</head>
+<body >
+    <nav>
+        <div class="nav-wrapper">
+            <a  class="brand-logo center">添加记录</a>
+            <button onclick="addTarget()"> 添加栏目</button>
+            <button id='quit'>quit</button>
+        </div>
+    </nav>
+   <form action="">
+    <input type="text" id="item">
+    <input type="submit">
+   </form>
+
+</body>
+<script>
+    function addTarget(){
+        document.querySelector('form').innerHTML += "<input type='text' id='item'>";
+    }
+
+
+    const electron = require("electron");
+    const {ipcRenderer} = electron;
+    const form = document.querySelector("form");
+    form.addEventListener("submit", submitForm); // 提交数据
+    function submitForm(e){
+            let container=[];
+            e.preventDefault();
+            items = document.querySelectorAll("#item")
+            for (i=0;i<items.length;i++)
+            {
+                container.push(items[i].value)
+            }
+            ipcRenderer.send('item:add', container);
+    };
+
+
+    const qBtn = document.getElementById('quit'); // 退出子窗口
+    qBtn.addEventListener("click",quitWindow);
+    function quitWindow(){
+        ipcRenderer.send("app:quitAdd");
+    }
+
+</script>
+</html>
