@@ -1,11 +1,15 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
+
 const mainX = 720;
 const mainH = 640;
 const {app,BrowserWindow,remote,ipcMain} = electron;
+const db = remote.require('./database')
+
 let mainWindow;
 let addWindow;
+
 
 // 监听app
 app.on("ready",function(){
@@ -28,8 +32,6 @@ app.on("ready",function(){
 
     mainWindow.webContents.openDevTools();
     mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
-    // addWindow.on("closed",function(){ addWindow=null });// 子窗口退出
-               
 });
 
 
@@ -39,7 +41,7 @@ ipcMain.on("app:quit",function(e){mainWindow.close();});
 // 添加弹出窗口
 ipcMain.on("app:addwindow",function(e)
     {addWindow = createAddWindow();});
-    
+
 // 退出弹窗
 ipcMain.on("app:quitAdd",function(e)
     {addWindow.close();});
@@ -47,6 +49,13 @@ ipcMain.on("app:quitAdd",function(e)
 // 数据获取保存
 ipcMain.on("item:add",function(e,items){
     for (i=0;i<items.length;i++){
+            // 保存到sqlite数据库
+            var sql = db.prepare("INSERT INTO record VALUES (?)")
+            for (var i=0;i<items.length;i++)
+            {
+                sql.run("content" + items[i]);
+            }
+            sql.finalize();
             console.log(items[i]);
     };
 })
