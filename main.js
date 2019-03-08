@@ -5,7 +5,6 @@ const path = require("path");
 const mainX = 720;
 const mainH = 640;
 const {app,BrowserWindow,remote,ipcMain} = electron;
-const db = remote.require('./database')
 
 let mainWindow;
 let addWindow;
@@ -30,7 +29,7 @@ app.on("ready",function(){
         slashes:true
     }));
 
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools(); // 开发者工具
     mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
 });
 

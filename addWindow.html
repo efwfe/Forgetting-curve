@@ -8,21 +8,22 @@
 </head>
 <body >
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper" style="-webkit-app-region: drag">
             <a  class="brand-logo center">添加记录</a>
-            <button onclick="addTarget()"> 添加栏目</button>
-            <button id='quit'>quit</button>
         </div>
     </nav>
-   <form action="">
+    <button onclick="addTarget()"> 添加栏目</button>
+    <button id='quit'>quit</button>
+    <form action="">
     <input type="text" id="item">
-    <input type="submit">
+    
    </form>
+   <input type="submit">
 
 </body>
 <script>
     function addTarget(){
-        document.querySelector('form').innerHTML += "<input type='text' id='item'>";
+        document.querySelector('form').innerHTML = "<input type='text' id='item'>"+ document.querySelector('form').innerHTML ;
     }
 
 

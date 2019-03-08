@@ -9,9 +9,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "electron-package": "^0.1.0",
+    "lowdb": "^1.0.0",
+    "rebuild": "electron-rebuild -f -w sqlite3",
     "request-promise": "^4.2.2",
-    "sqlite3": "^4.0.6",
-    "rebuild": "electron-rebuild -f -w sqlite3"
+    "sqlite3": "^4.0.6"
   },
   "devDependencies": {
     "electron": "^4.0.7",
