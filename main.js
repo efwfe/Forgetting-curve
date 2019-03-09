@@ -1,10 +1,11 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
-
+const DataStore = require("./database");
 const mainX = 720;
 const mainH = 640;
-const {app,BrowserWindow,remote,ipcMain} = electron;
+const {app,BrowserWindow,ipcMain} = electron;
+const store = new DataStore({name:"dayly Main"});
 
 let mainWindow;
 let addWindow;
@@ -46,17 +47,9 @@ ipcMain.on("app:quitAdd",function(e)
     {addWindow.close();});
 
 // 数据获取保存
-ipcMain.on("item:add",function(e,items){
-    for (i=0;i<items.length;i++){
-            // 保存到sqlite数据库
-            var sql = db.prepare("INSERT INTO record VALUES (?)")
-            for (var i=0;i<items.length;i++)
-            {
-                sql.run("content" + items[i]);
-            }
-            sql.finalize();
-            console.log(items[i]);
-    };
+ipcMain.on("item:add",function(e,item){
+   store.addDatas(item);
+   console.log(store.data);
 })
 
 function createAddWindow(){
@@ -66,6 +59,7 @@ function createAddWindow(){
         protocol:"file:",
         slashes:true
     }));
+    win.webContents.openDevTools();
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
         win = null});

@@ -12,13 +12,14 @@
             <a  class="brand-logo center">添加记录</a>
         </div>
     </nav>
-    <button onclick="addTarget()"> 添加栏目</button>
+    <!-- 
+        <button onclick="addTarget()"> 添加栏目</button> -->
     <button id='quit'>quit</button>
     <form action="">
     <input type="text" id="item">
-    
+    <input type="submit">
    </form>
-   <input type="submit">
+  
 
 </body>
 <script>
@@ -32,14 +33,10 @@
     const form = document.querySelector("form");
     form.addEventListener("submit", submitForm); // 提交数据
     function submitForm(e){
-            let container=[];
             e.preventDefault();
-            items = document.querySelectorAll("#item")
-            for (i=0;i<items.length;i++)
-            {
-                container.push(items[i].value)
-            }
-            ipcRenderer.send('item:add', container);
+            item = document.querySelector("#item");
+            console.log(item.value);
+            ipcRenderer.send('item:add', item.value);
     };
 
 
