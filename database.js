@@ -23,7 +23,7 @@ class DataStore extends Store{
   }
 
   addDatas(item){
-      this.data = [...this.data,item]
+      this.data = [...this.data, item]
       return this.saveDatas();
   }
 

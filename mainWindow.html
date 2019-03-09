@@ -12,6 +12,9 @@
             <a  class="brand-logo center">main head</a>
         </div>
     </nav>
+    <ul>
+
+    </ul>
     <button id='quit'>quit</button>
     <button id='add'>add</button>
 
@@ -25,14 +28,35 @@
     const addBtn = document.getElementById('add');
     qBtn.addEventListener("click",quitApp);
     addBtn.addEventListener("click",addWindow);
-
+    // 退出应用
     function quitApp(e){
         ipcRenderer.send("app:quit");
     };
 
+    // 添加窗口
     function addWindow(e){
         ipcRenderer.send("app:addwindow");
     };
+
+    // 数据更新
+    ipcRenderer.on("dayly",(e,itemData) => {
+        lists = document.querySelector("ul");
+        for (var i=0;i<itemData.length;i++)
+        {
+            lists.innerHTML += "<li>"+itemData+"</li>";
+        }
+        
+
+    });
+
+    ipcRenderer.on("items",(e,itemData) =>{
+        lists = document.querySelector("ul");
+        for (var i=0;i<itemData.length;i++)
+        {
+            console.log(itemData[i]);
+            lists.innerHTML += "<li>"+itemData[i]+"</li>";
+        }
+    });
     
 
 </script>

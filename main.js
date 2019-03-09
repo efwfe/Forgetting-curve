@@ -30,10 +30,16 @@ app.on("ready",function(){
         slashes:true
     }));
 
-    // mainWindow.webContents.openDevTools(); // 开发者工具
+    mainWindow.webContents.openDevTools(); // 开发者工具
     mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
+
 });
 
+// 启动应用 app:start 获取数据
+ipcMain.on("app:start",function(e){
+    mainWindow.close();
+
+});
 
 // 退出应用 app:quit
 ipcMain.on("app:quit",function(e){mainWindow.close();});
@@ -50,6 +56,7 @@ ipcMain.on("app:quitAdd",function(e)
 ipcMain.on("item:add",function(e,item){
    store.addDatas(item);
    console.log(store.data);
+   mainWindow.webContents.send('items', store.data);
 })
 
 function createAddWindow(){
