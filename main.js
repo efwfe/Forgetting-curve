@@ -19,6 +19,7 @@ app.on("ready",function(){
         frame:false,
         center: true,
         // resizable:false,
+        show: false,
         minWidth:220,
         minHeight:220});
 
@@ -30,14 +31,15 @@ app.on("ready",function(){
         slashes:true
     }));
 
+    // initialize with 
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.webContents.send('days', store.queryDate(0));
+        mainWindow.show();
+      })
+
+
     mainWindow.webContents.openDevTools(); // 开发者工具
     mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
-
-});
-
-// 启动应用 app:start 获取数据
-ipcMain.on("app:start",function(e){
-    mainWindow.close();
 
 });
 
@@ -61,7 +63,6 @@ ipcMain.on("item:add",function(e,item){
 // 数据删除
 ipcMain.on("item:del",function(e,item){
     store.deleteData(item);
-    console.log(item);
     mainWindow.webContents.send('items', store.data);
  })
 

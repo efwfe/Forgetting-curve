@@ -32,6 +32,19 @@ class DataStore extends Store{
     return this.saveDatas();
   }
 
+  // 查询七天前的数据
+  queryDate(day){
+    var date = this.getDate(day);
+    return this.get(date)||[]
+  }
+
+  getDate(days){
+    var date = new Date();
+    var last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
+    var someday = last.getFullYear()+'-'+(last.getMonth()+1)+'-'+last.getDate();
+    return someday;
+  }
+
 }
 
 module.exports = DataStore
