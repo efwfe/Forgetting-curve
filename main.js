@@ -57,7 +57,6 @@ ipcMain.on("app:quitAdd",function(e)
 // 数据保存 主窗口展示
 ipcMain.on("item:add",function(e,item){
    store.addDatas(item);
-   console.log(store.data);
    mainWindow.webContents.send('items', store.data);
 })
 // 数据删除
