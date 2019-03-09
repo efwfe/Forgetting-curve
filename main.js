@@ -52,12 +52,19 @@ ipcMain.on("app:addwindow",function(e)
 ipcMain.on("app:quitAdd",function(e)
     {addWindow.close();});
 
-// 数据获取保存
+// 数据保存 主窗口展示
 ipcMain.on("item:add",function(e,item){
    store.addDatas(item);
    console.log(store.data);
    mainWindow.webContents.send('items', store.data);
 })
+// 数据删除
+ipcMain.on("item:del",function(e,item){
+    store.deleteData(item);
+    console.log(item);
+    mainWindow.webContents.send('items', store.data);
+ })
+
 
 function createAddWindow(){
     win = new BrowserWindow({width: mainX, height: mainH,frame: false,});
