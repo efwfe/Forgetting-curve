@@ -30,6 +30,7 @@ app.on("ready",function(){
         protocol:"file:",
         slashes:true
     }));
+    mainWindow.nodeIntegration = true;
 
     // initialize with 
     mainWindow.once('ready-to-show', () => {
@@ -67,7 +68,8 @@ ipcMain.on("item:del",function(e,item){
 
 
 function createAddWindow(){
-    win = new BrowserWindow({width: mainX, height: mainH,frame: false,});
+    win = new BrowserWindow({width: mainX, height: mainH,frame: false});
+    win.nodeIntegration = true;
     win.loadURL(url.format({
         pathname : path.join(__dirname,"addWindow.html"),
         protocol:"file:",
