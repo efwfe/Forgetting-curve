@@ -1,51 +1,92 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./css/mycss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body{
+            position: relative;
+        }
+        nav{
+            -webkit-user-select: none;
+            -webkit-app-region: drag;
+            position:relative;
+        }
+        #sub{
+            position: fixed;
+            right: 18px;
+            bottom: 10px;
+            width: 120px;
+            height: 32px;
+            line-height: 30px;
+            text-align: center;
+            background-color: brown        
+        }
+            #quit {
+                position: absolute;
+                right: 8px;
+                top: 12px;
+                z-index: 100;
+                -webkit-app-region: no-drag;
+                width:30px;
+            }
+
+    </style>
     <title>Document</title>
 </head>
-<body >
+
+<body>
     <nav>
         <div class="nav-wrapper">
-            <a  class="brand-logo center">添加记录</a>
+            <a class="brand-logo center">记录</a>
             <img src="./css/close.png" alt="" width="20px" id="quit">
         </div>
     </nav>
-    <!-- 
-        <button onclick="addTarget()"> 添加栏目</button> -->
-    
-    <form action="">
-    <input type="text" id="item">
-    <button >提交</button>
-   </form>
-  
+    <div class="container">
+        <form action="">
+            <div class="file-field input-field">
+                <div>
+                    <input type="text" id='item' placeholder="feed me somothing">
+                </div>
+                <input class="btn waves-effect waves-light" type="submit" id='sub' name="action">Submit
+                <i class="material-icons right">send</i>
+            </div>
+        </form>
+    </div>
+
+
 
 </body>
 <script>
-    function addTarget(){
-        document.querySelector('form').innerHTML = "<input type='text' id='item'>"+ document.querySelector('form').innerHTML ;
+    function addTarget() {
+        document.querySelector('form').innerHTML = "<input type='text' id='item'>" + document.querySelector('form').innerHTML;
     }
 
 
     const electron = require("electron");
-    const {ipcRenderer} = electron;
+    const {
+        ipcRenderer
+    } = electron;
     const form = document.querySelector("form");
     form.addEventListener("submit", submitForm); // 提交数据
-    function submitForm(e){
-            e.preventDefault();
-            item = document.querySelector("#item");
+    function submitForm(e) {
+        item = document.querySelector("#item");
+        if (item != '') {
             ipcRenderer.send('item:add', item.value);
+        };
+
     };
 
 
     const qBtn = document.getElementById('quit'); // 退出子窗口
-    qBtn.addEventListener("click",quitWindow);
-    function quitWindow(){
+    qBtn.addEventListener("click", quitWindow);
+
+    function quitWindow() {
         ipcRenderer.send("app:quitAdd");
     }
-
 </script>
+
 </html>

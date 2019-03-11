@@ -5,7 +5,11 @@
 nav{
     -webkit-user-select: none;
     -webkit-app-region: drag;
-    border-radius: 10px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    width: 100%;
 }
 #add {
     position: absolute;
@@ -24,3 +28,7 @@ nav{
     width:30px;
 }
 body::-webkit-scrollbar { width: 0 !important }
+body {
+    border: 1px solid #555555; 
+    
+}

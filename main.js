@@ -71,7 +71,7 @@ ipcMain.on("item:del",function(e,item){
 
 
 function createAddWindow(){
-    win = new BrowserWindow({width: mainX/2, height: mainH/2,frame: false,center:true});
+    win = new BrowserWindow({width: mainX/2, height: 200,frame: false,center:true});
     win.nodeIntegration = true;
     win.loadURL(url.format({
         pathname : path.join(__dirname,"addWindow.html"),
