@@ -1,5 +1,5 @@
 {
-  "name": "your-app",
+  "name": "Recorder",
   "version": "0.1.0",
   "main": "main.js",
   "scripts": {
@@ -10,10 +10,7 @@
     "axios": "^0.18.0",
     "electron-package": "^0.1.0",
     "electron-store": "^2.0.0",
-    "lowdb": "^1.0.0",
-    "rebuild": "electron-rebuild -f -w sqlite3",
-    "request-promise": "^4.2.2",
-    "sqlite3": "^4.0.6"
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "electron": "^4.0.7",
