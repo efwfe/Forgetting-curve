@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "abhs",
+=======
+  "name": "Recorder",
+>>>>>>> 0a133fe1d9be45dc6382b8953963178f0bd6afd9
   "version": "0.1.0",
   "main": "main.js",
   "description": "根据记忆曲线开发的大型Pc应用",
