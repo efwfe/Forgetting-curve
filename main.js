@@ -34,12 +34,15 @@ app.on("ready",function(){
 
     // initialize with 
     mainWindow.once('ready-to-show', () => {
-        mainWindow.webContents.send('days', store.queryDate(0));
+        mainWindow.webContents.send('dayly-1', store.queryDate(1));
+        mainWindow.webContents.send('dayly-3', store.queryDate(3));
+        mainWindow.webContents.send('dayly-7', store.queryDate(7));
+        mainWindow.webContents.send('dayly-15', store.queryDate(15));
         mainWindow.show();
       })
 
 
-    mainWindow.webContents.openDevTools(); // 开发者工具
+    //mainWindow.webContents.openDevTools(); // 开发者工具
     mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
 
 });
@@ -68,14 +71,14 @@ ipcMain.on("item:del",function(e,item){
 
 
 function createAddWindow(){
-    win = new BrowserWindow({width: mainX, height: mainH,frame: false});
+    win = new BrowserWindow({width: mainX/2, height: mainH/2,frame: false,center:true});
     win.nodeIntegration = true;
     win.loadURL(url.format({
         pathname : path.join(__dirname,"addWindow.html"),
         protocol:"file:",
         slashes:true
     }));
-    win.webContents.openDevTools();
+   win.webContents.openDevTools();
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
         win = null});

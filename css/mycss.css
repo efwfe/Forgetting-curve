@@ -2,3 +2,25 @@
         background: #424242;
         }
 
+nav{
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    border-radius: 10px;
+}
+#add {
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    z-index: 100;
+    -webkit-app-region: no-drag;
+}
+
+#quit {
+    position: absolute;
+    right: 8px;
+    top: 12px;
+    z-index: 100;
+    -webkit-app-region: no-drag;
+    width:30px;
+}
+body::-webkit-scrollbar { width: 0 !important }

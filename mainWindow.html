@@ -10,73 +10,48 @@
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper" style="-webkit-app-region: drag">
-                <a class="waves-effect waves-light btn">Button</a>
+    <nav style="position:relative">
+         <a class="waves-effect waves-light btn" id='add'>Button</a>
+        <div class="nav-wrapper" >
             <a class="brand-logo center">main head</a>
+           
         </div>
+        <img src="./css/close.png" alt="" id="quit">
+        
     </nav>
-    <button id='quit'>quit</button>
-    <button id='add'>add</button>
+    
     <div class="container">
         <ul class="collapsible popout" id='content'>
             <li class="">
                 <div class="collapsible-header" tabindex="0">
+                    <i class="material-icons">One Day</i></div>
+                <div class="collapsible-body"  id='One'>
+                </div>
+            </li>
+            <li class="">
+                <div class="collapsible-header" tabindex="0">
                     <i class="material-icons">Three Day</i></div>
-                <div class="collapsible-body" style="" id='Three'>
-                    <p> <label>
-                            <input type="checkbox" />
-                            <span>Yellow</span>
-                        </label></p>
-                    <p>
-                        <label>
-                            <input type="checkbox" />
-                            <span>Yellow</span>
-                        </label>
-                    </p>
-
+                <div class="collapsible-body"  id='Three'>
                 </div>
             </li>
 
             <li class="">
-                    <div class="collapsible-header" tabindex="0">
-                        <i class="material-icons">Seven Day</i></div>
-                    <div class="collapsible-body" style="" id='seven'>
-                        <p> <label>
-                                <input type="checkbox" />
-                                <span>Yellow</span>
-                            </label></p>
-                        <p>
-                            <label>
-                                <input type="checkbox" />
-                                <span>Yellow</span>
-                            </label>
-                        </p>
-    
-                    </div>
-                </li>
-                <li class="">
-                        <div class="collapsible-header" tabindex="0">
-                            <i class="material-icons">fifteen Day</i></div>
-                        <div class="collapsible-body" style="" id='fifteen'>
-                            <p> <label>
-                                    <input type="checkbox" />
-                                    <span>Yellow</span>
-                                </label></p>
-                            <p>
-                                <label>
-                                    <input type="checkbox" />
-                                    <span>Yellow</span>
-                                </label>
-                            </p>
-        
-                        </div>
-                    </li>
+                <div class="collapsible-header" tabindex="0">
+                    <i class="material-icons">Seven Day</i></div>
+                <div class="collapsible-body"  id='seven'>
+                </div>
+            </li>
+            <li class="">
+                <div class="collapsible-header" tabindex="0">
+                    <i class="material-icons">fifteen Day</i></div>
+                <div class="collapsible-body"  id='fifteen'>
+                </div>
+            </li>
 
             <li class="">
                 <div class="collapsible-header" tabindex="0">
                     <i class="material-icons">Today done</i></div>
-                <div class="collapsible-body" style="" id='today'>
+                <div class="collapsible-body"  id='today'>
                 </div>
             </li>
 
@@ -92,7 +67,9 @@
 <script src="./css/myjs.js" type="text/javascript"></script>
 <script>
     const electron = require("electron");
-    const {ipcRenderer} = electron;
+    const {
+        ipcRenderer
+    } = electron;
 
     const qBtn = document.getElementById('quit');
     const addBtn = document.getElementById('add');
@@ -116,6 +93,20 @@
 
 
     // 数据更新
+    ipcRenderer.on("dayly-1", (e, itemData) => {
+        lists = document.querySelector("#One");
+        for (var i = 0; i < itemData.length; i++) {
+            lists.innerHTML += '<p><label><input type="checkbox" /><span>' + itemData + '</span></label></p>'
+        }
+    });
+
+    ipcRenderer.on("dayly-3", (e, itemData) => {
+        lists = document.querySelector("#three");
+        for (var i = 0; i < itemData.length; i++) {
+            lists.innerHTML += '<p><label><input type="checkbox" /><span>' + itemData + '</span></label></p>'
+        }
+    });
+
     ipcRenderer.on("dayly-3", (e, itemData) => {
         lists = document.querySelector("#three");
         for (var i = 0; i < itemData.length; i++) {
@@ -141,8 +132,10 @@
         lists = document.querySelector("#today");
         tmp = ""
         for (var i = 0; i < itemData.length; i++) {
-            tmp += '<p class="item"><label><input type="checkbox" checked="checked" disabled="disabled"  /><span>' + itemData[i] + '</span></label></p>'
-  
+            tmp +=
+                '<p class="item"><label><input type="checkbox" checked="checked" disabled="disabled"  /><span>' +
+                itemData[i] + '</span></label></p>'
+
         }
         lists.innerHTML = tmp;
     });
