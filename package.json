@@ -1,23 +1,20 @@
 {
-  "name": "your-app",
+  "name": "abhs",
   "version": "0.1.0",
   "main": "main.js",
+  "description": "根据记忆曲线开发的大型Pc应用",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager ./ myapp --out ./outApp --app-version 1.7.9 "
+    "packager": "electron-packager  . --platform=win32 --arch=x64 --asar  --overwrite --out=outApp --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"abhs\""
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "electron-package": "^0.1.0",
     "electron-store": "^2.0.0",
-    "lowdb": "^1.0.0",
-    "rebuild": "electron-rebuild -f -w sqlite3",
-    "request-promise": "^4.2.2",
-    "sqlite3": "^4.0.6"
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
-    "electron": "^4.0.7",
-    "electron-packager": "^13.0.1",
+    "electron": "^4.0.8",
+    "electron-packager": "^13.1.1",
     "electron-rebuild": "^1.8.4"
   }
 }
