@@ -7,6 +7,8 @@
  数据本地路径: C:\Users\Administrator\AppData\Roaming\abhs
 ```
 
+### today done 双击可以删除
+
 ![avatar](css/index.png) 
 ![avatar](css/add.png) 
 
