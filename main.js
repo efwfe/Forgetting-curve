@@ -4,7 +4,7 @@ const path = require("path");
 const DataStore = require("./database");
 const mainX = 720;
 const mainH = 640;
-const {app,BrowserWindow,ipcMain} = electron;
+const {app,BrowserWindow,ipcMain,globalShortcut} = electron;
 const store = new DataStore({name:"dayly Main"});
 
 let mainWindow;
@@ -13,12 +13,13 @@ let addWindow;
 
 // 监听app
 app.on("ready",function(){
+    globalShortcut.register("shift+enter",()=>{return});
     mainWindow = new BrowserWindow({
         width:mainX,
         height:mainH,
         frame:false,
         center: true,
-        // resizable:false,
+        resizable:false,
         show: false,
         minWidth:220,
         minHeight:220});
@@ -71,7 +72,7 @@ ipcMain.on("item:del",function(e,item){
 
 
 function createAddWindow(){
-    win = new BrowserWindow({width: mainX/2, height: 200,frame: false,center:true});
+    win = new BrowserWindow({width: mainX/2, height: 200,frame: false,center:true,resizable:false,});
     win.nodeIntegration = true;
     win.loadURL(url.format({
         pathname : path.join(__dirname,"addWindow.html"),
@@ -81,6 +82,7 @@ function createAddWindow(){
    // win.webContents.openDevTools();
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
+        mainWindow.webContents.send('addBtn:show');
         win = null});
     return win;
     }

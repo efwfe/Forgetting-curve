@@ -73,7 +73,7 @@
     form.addEventListener("submit", submitForm); // 提交数据
     function submitForm(e) {
         item = document.querySelector("#item");
-        if (item != '') {
+        if (item.value !== "" &&item.value !== null) {
             ipcRenderer.send('item:add', item.value);
         };
 

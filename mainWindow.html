@@ -83,12 +83,17 @@
     // 添加窗口
     function addWindow(e) {
         ipcRenderer.send("app:addwindow");
+        $("#add").hide();
     };
 
     // 双击元素
     $("body").on("dblclick", ".item", function () {
         $(this).remove();
         ipcRenderer.send("item:del", $(this).find("span").text());
+    })
+    // 关闭按钮后显示
+    ipcRenderer.on("addBtn:show",(e) =>{
+        $("#add").show();
     })
 
 
