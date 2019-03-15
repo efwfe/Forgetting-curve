@@ -2,8 +2,8 @@ const electron = require("electron");
 const url = require("url");
 const path = require("path");
 const DataStore = require("./database");
-const mainX = 720;
-const mainH = 640;
+const mainX = 520;
+const mainH = 740;
 const {app,BrowserWindow,ipcMain,globalShortcut} = electron;
 const store = new DataStore({name:"dayly Main"});
 
@@ -19,7 +19,7 @@ app.on("ready",function(){
         height:mainH,
         frame:false,
         center: true,
-        resizable:false,
+        resizable:true,
         show: false,
         minWidth:220,
         minHeight:220});
@@ -44,7 +44,11 @@ app.on("ready",function(){
 
 
     //mainWindow.webContents.openDevTools(); // 开发者工具
-    mainWindow.on("closed",function(){ app.quit(); }); // 主窗口退出
+    mainWindow.on("closed",function(){ app.quit(); 
+    if(addWindow !== null){
+        addWindow.close;
+    }
+    }); // 主窗口退出
 
 });
 
@@ -72,7 +76,7 @@ ipcMain.on("item:del",function(e,item){
 
 
 function createAddWindow(){
-    win = new BrowserWindow({width: mainX/2, height: 200,frame: false,center:true,resizable:false,});
+    win = new BrowserWindow({width: 420, height: 200,frame: false,center:true,resizable:true,});
     win.nodeIntegration = true;
     win.loadURL(url.format({
         pathname : path.join(__dirname,"addWindow.html"),
@@ -82,7 +86,14 @@ function createAddWindow(){
    // win.webContents.openDevTools();
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
-        mainWindow.webContents.send('addBtn:show');
+        try{
+            mainWindow.webContents.send('addBtn:show');
+        }
+        catch(e)
+        {
+
+        }
+        
         win = null});
     return win;
     }
