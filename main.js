@@ -45,7 +45,7 @@ app.on("ready",function(){
 
     //mainWindow.webContents.openDevTools(); // 开发者工具
     mainWindow.on("closed",function(){ app.quit(); 
-    if(addWindow !== null){
+    if(addWindow !== null && addWindow !==undefine){
         addWindow.close;
     }
     }); // 主窗口退出
